@@ -38,8 +38,10 @@ class TestRoutes(TestCase):
                 response = self.client.get(url)
                 self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    # 3. Проверяем, что страницы отдельной заметки, удаления и редактирования заметки доступны только автору заметки.
-    # Если на эти страницы попытается зайти другой пользователь — вернётся ошибка 404.
+    # 3. Проверяем, что страницы отдельной заметки,
+    # удаления и редактирования заметки доступны только автору заметки.
+    # Если на эти страницы попытается зайти
+    # другой пользователь — вернётся ошибка 404.
     def test_availability_for_note_show_and_edit_and_delete(self):
         users_statuses = (
             (self.author_client, HTTPStatus.OK),
@@ -52,8 +54,10 @@ class TestRoutes(TestCase):
                     response = user.get(url)
                     self.assertEqual(response.status_code, status)
 
-    # 2. Проверяем, что авторизованному пользователю доступна страница со списком заметок notes/,
-    # страница успешного добавления заметки done/, страница добавления новой заметки add/.
+    # 2. Проверяем, что авторизованному пользователю
+    # доступна страница со списком заметок notes/,
+    # страница успешного добавления заметки done/,
+    # страница добавления новой заметки add/.
     def test_availability_for_note_add_and_list(self):
         urls = (
             ('notes:add'),
@@ -66,8 +70,10 @@ class TestRoutes(TestCase):
                 response = self.author_client.get(url)
             self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    # 4. При попытке перейти на страницу списка заметок, страницу успешного добавления записи,
-    # страницу добавления заметки, отдельной заметки, редактирования или удаления,
+    # 4. При попытке перейти на страницу списка заметок,
+    # страницу успешного добавления записи,
+    # страницу добавления заметки, отдельной заметки,
+    # редактирования или удаления,
     # заметки анонимный пользователь перенаправляется на страницу логина.
     def test_redirect_for_anonymous_client(self):
         login_url = reverse('users:login')
